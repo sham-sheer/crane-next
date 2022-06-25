@@ -60,6 +60,9 @@ model User {
   accounts      Account[]
   sessions      Session[]
   profile       Profile?
+  work          Work[]
+  education     Education[]
+  jobRequest    JobRequest[]
 
   @@map(name: "users")
 }
@@ -78,4 +81,47 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Work {
+  id String @id @default(cuid())
+  employer String
+  title String
+  startMonth String
+  startYear String
+  currentJob Boolean
+  endMonth String
+  endYear String
+  country String
+  city String
+  state String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int @map("user_id")
+}
+
+model Education {
+  id String @id @default(cuid())
+  school String
+  degree String
+  degreeStatus String
+  major String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int @map("user_id")
+}
+
+model JobRequest {
+  id String @id @default(cuid())
+  name String
+  dob   String
+  skill String[]
+  degree Boolean
+  locationInterest String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int @map("user_id")
 }

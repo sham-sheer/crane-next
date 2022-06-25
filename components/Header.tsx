@@ -13,21 +13,11 @@ const Header: React.FC = () => {
   let left = (
     <div className="left">
       <Link href="/">
-        <a className="bold" data-active={isActive("/")}>
+        <a className="font-bold inline-block no-underline color-" data-active={isActive("/")}>
           Feed
         </a>
-      </Link >
+      </Link>
       <style jsx>{`
-        .bold {
-          font-weight: bold;
-        }
-
-        a {
-          text-decoration: none;
-          color: #000;
-          display: inline-block;
-        }
-
         .left a[data-active="true"] {
           color: gray;
         }
@@ -153,6 +143,11 @@ const Header: React.FC = () => {
         <Link href="/create">
           <button>
             <a>New post</a>
+          </button>
+        </Link>
+        <Link href="/createJobRequest">
+          <button>
+            <a>New job request</a>
           </button>
         </Link>
         <button onClick={() => signOut()}>
