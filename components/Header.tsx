@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     <div className="left">
       <Link href="/">
         <a className="font-bold inline-block no-underline color-" data-active={isActive("/")}>
-          Feed
+          My Jobs
         </a>
       </Link>
       <style jsx>{`
@@ -36,7 +36,7 @@ const Header: React.FC = () => {
       <div className="left">
         <Link href="/">
           <a className="bold" data-active={isActive("/")}>
-            Feed
+            My Jobs
           </a>
         </Link>
         <style jsx>{`
@@ -108,7 +108,7 @@ const Header: React.FC = () => {
       <div className="left">
         <Link href="/">
           <a className="bold" data-active={isActive("/")}>
-            Feed
+            My Jobs
           </a>
         </Link>
         <Link href="/drafts">
@@ -140,11 +140,6 @@ const Header: React.FC = () => {
         <p>
           {session.user.name} ({session.user.email})
         </p>
-        <Link href="/create">
-          <button>
-            <a>New post</a>
-          </button>
-        </Link>
         <Link href="/createJobRequest">
           <button>
             <a>New job request</a>
