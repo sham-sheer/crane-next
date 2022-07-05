@@ -33,5 +33,6 @@ const options = {
     })
   ],
   adapter: PrismaAdapter(prisma),
+  secret: process.env.SECRET,
   debug: true
 };
