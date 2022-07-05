@@ -55,7 +55,7 @@ const CreateJobRequest: React.FC = () => {
     <div>
       <Header />
       <div className="py-12">
-        <h2 className="text-2xl font-bold">Solid</h2>
+        <h2 className="text-2xl font-bold">Job Application</h2>
         <form onSubmit={handleSubmit}>
           <div className="mt-8 max-w-md">
             <div className="grid grid-cols-1 gap-6">
