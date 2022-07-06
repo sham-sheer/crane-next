@@ -1,24 +1,36 @@
-import Link from 'next/link'
-import Header from "../components/Header";
+import Header from '../components/Header';
 import React, { useState } from 'react';
-import Router from "next/router";
+import Router from 'next/router';
+
+import Select, { StylesConfig } from 'react-select';
+import { countryOption } from '../resources/country-options';
+import { skillOption } from '../resources/skill-options';
+import { languageOption } from '../resources/language-options';
 
 const CreateJobRequest: React.FC = () => {
-  const [locations, setLocations] = useState(null);
-  const [locationList, setLocationList] = useState([]);
-  const [name, setName] = useState("");
-  const [dob, setDob] = useState("");
+  const [locations, setLocations] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [languages, setLanguages] = useState([]);
+  const [name, setName] = useState('');
+  const [dob, setDob] = useState('');
 
-  const handleCheck = (event) => {
-    if (event.target.checked) {
-      setLocations(event.target.value)
+  const handleCountryChange = (events) => {
+    const mapped = events.map(event => event.label);
+    console.log('Countries picked: ', mapped);
+    setLocations(mapped);
+  };
 
-      console.log("Location: ", locations)
-      locationList.push(locations)
-      setLocationList([locations])
-      console.log("Location list: ", locationList)
-    }
-  }
+  const handleSkillChange = (events) => {
+    const mapped = events.map(event => event.label);
+    console.log('Skills picked: ', mapped);
+    setSkills(mapped);
+  };
+
+  const handleLangChange = (events) => {
+    const mapped = events.map(event => event.label);
+    console.log('Languages picked: ', mapped);
+    setLanguages(mapped);
+  };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     // Stop the form from submitting and refreshing the page.
@@ -27,25 +39,25 @@ const CreateJobRequest: React.FC = () => {
     const data = {
       name,
       dob,
-      skill: ["construction", "cleaner"],
+      skills,
       degree: true,
-      locationInterest: locationList
-    }
+      locations,
+      languages
+    };
 
-    const JSONdata = JSON.stringify(data)
+    const JSONdata = JSON.stringify(data);
     // Send the form data to our API and get a response.
     try {
-      console.log("Creating database entry for: ", JSONdata)
+      console.log('Creating database entry for: ', JSONdata);
       const response = await fetch('/api/job', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSONdata
-      })
+      });
       // Get the response data from server as JSON.
       // If server returns the name submitted, that means the form works.
-      const result = await response.json()
-      alert(`Created database entry for: ${result.data}`)
-      await Router.push("/");
+      const result = await response.json();
+      await Router.push('/');
     } catch (error) {
       console.error(error);
     }
@@ -98,24 +110,37 @@ const CreateJobRequest: React.FC = () => {
               <fieldset className="block">
                 <legend className="text-gray-700">Countries you are interested in</legend>
                 <div className="mt-2">
-                  <div>
-                    <label className="inline-flex items-center">
-                      <input className="form-checkbox" type="checkbox" onChange={handleCheck} value="Singapore" />
-                      <span className="ml-2">Singapore</span>
-                    </label>
-                  </div>
-                  <div>
-                    <label className="inline-flex items-center">
-                      <input className="form-checkbox" type="checkbox" onChange={handleCheck} value="United States of America" />
-                      <span className="ml-2">United States of America</span>
-                    </label>
-                  </div>
-                  <div>
-                    <label className="inline-flex items-center">
-                      <input className="form-checkbox" type="checkbox" onChange={handleCheck} value="Cananda" />
-                      <span className="ml-2">Cananda</span>
-                    </label>
-                  </div>
+                  <Select
+                    closeMenuOnSelect={false}
+                    defaultValue={[countryOption[0], countryOption[1]]}
+                    isMulti
+                    options={countryOption}
+                    onChange={handleCountryChange}
+                  />
+                </div>
+              </fieldset>
+              <fieldset className="block">
+                <legend className="text-gray-700">Skills you are interested in</legend>
+                <div className="mt-2">
+                  <Select
+                    closeMenuOnSelect={false}
+                    defaultValue={[skillOption[0], skillOption[1]]}
+                    isMulti
+                    options={skillOption}
+                    onChange={handleSkillChange}
+                  />
+                </div>
+              </fieldset>
+              <fieldset className="block">
+                <legend className="text-gray-700">What languages do you know?</legend>
+                <div className="mt-2">
+                  <Select
+                    closeMenuOnSelect={false}
+                    defaultValue={[languageOption[0], languageOption[1]]}
+                    isMulti
+                    options={languageOption}
+                    onChange={handleLangChange}
+                  />
                 </div>
               </fieldset>
               <button type="submit">Submit</button>
@@ -125,7 +150,7 @@ const CreateJobRequest: React.FC = () => {
       </div>
     </div>
 
-  )
-}
+  );
+};
 
 export default CreateJobRequest;
