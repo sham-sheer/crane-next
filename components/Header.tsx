@@ -1,7 +1,7 @@
-import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/react";
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { signOut, useSession } from 'next-auth/react';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   let left = (
     <div className="left">
       <Link href="/">
-        <a className="font-bold inline-block no-underline color-" data-active={isActive("/")}>
+        <a className="font-bold inline-block no-underline color-" data-active={isActive('/')}>
           My Jobs
         </a>
       </Link>
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
     left = (
       <div className="left">
         <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
+          <a className="bold" data-active={isActive('/')}>
             My Jobs
           </a>
         </Link>
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <Link href="/api/auth/signin">
-          <a data-active={isActive("/signup")}>Log in</a>
+          <a data-active={isActive('/signup')}>Log in</a>
         </Link>
         <style jsx>{`
           a {
@@ -107,12 +107,12 @@ const Header: React.FC = () => {
     left = (
       <div className="left">
         <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
+          <a className="bold" data-active={isActive('/')}>
             My Job Requests
           </a>
         </Link>
         <Link href="/drafts">
-          <a data-active={isActive("/drafts")}>Drafts</a>
+          <a data-active={isActive('/drafts')}>Drafts</a>
         </Link>
         <style jsx>{`
           .bold {

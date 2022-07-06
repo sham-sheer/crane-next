@@ -116,9 +116,11 @@ model JobRequest {
   id String @id @default(cuid())
   name String
   dob   String
-  skill String[]
+  skills String[]
   degree Boolean
-  locationInterest String[]
+  locations String[]
+  languages String[]
+
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

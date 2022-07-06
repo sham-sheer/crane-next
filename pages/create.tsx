@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import Layout from "../components/Layout";
-import Router from "next/router";
+import React, { useState } from 'react';
+import Layout from '../components/Layout';
+import Router from 'next/router';
 
 const Draft: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
       const body = { title, content };
-      await fetch(`/api/post`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      await fetch('/api/post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      await Router.push("/drafts");
+      await Router.push('/drafts');
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +41,7 @@ const Draft: React.FC = () => {
             value={content}
           />
           <input disabled={!content || !title} type="submit" value="Create" />
-          <a className="back" href="#" onClick={() => Router.push("/")}>
+          <a className="back" href="#" onClick={() => Router.push('/')}>
             or Cancel
           </a>
         </form>

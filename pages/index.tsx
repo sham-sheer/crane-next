@@ -1,14 +1,14 @@
-import React from "react";
-import type { GetServerSideProps } from "next";
-import Layout from "../components/Layout";
-import Job, { JobProps } from "../components/Job";
-import prisma from '../lib/prisma'
+import React from 'react';
+import type { GetServerSideProps } from 'next';
+import Layout from '../components/Layout';
+import Job, { JobProps } from '../components/Job';
+import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const feed = await prisma.jobRequest.findMany();
-  console.log("Feed: ", feed)
+  console.log('Feed: ', feed);
   return {
-    props: { feed : JSON.parse(JSON.stringify(feed))  },
+    props: { feed : JSON.parse(JSON.stringify(feed)) },
   };
 };
 
