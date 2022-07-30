@@ -14,9 +14,10 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
       data: {
         name: jsonData.name,
         dob: jsonData.dob,
-        skill: jsonData.skill,
+        skills: jsonData.skills,
         degree: jsonData.degree,
-        locationInterest: jsonData.locationInterest,
+        locations: jsonData.locations,
+        languages: jsonData.languages,
         user: { connect: { email: session?.user?.email } }
       },
     });

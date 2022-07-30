@@ -56,7 +56,7 @@ const CreateJobRequest: React.FC = () => {
       });
       // Get the response data from server as JSON.
       // If server returns the name submitted, that means the form works.
-      const result = await response.json();
+      await response.json();
       await Router.push('/');
     } catch (error) {
       console.error(error);

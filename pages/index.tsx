@@ -2,6 +2,7 @@ import React from 'react';
 import type { GetServerSideProps } from 'next';
 import Layout from '../components/Layout';
 import Job, { JobProps } from '../components/Job';
+import { useSession, getSession } from 'next-auth/react';
 import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -17,6 +18,15 @@ type Props = {
 };
 
 const Blog: React.FC<Props> = (props) => {
+  const {data: session}= useSession();
+  if (!session) {
+    return (
+      <Layout>
+        <h1>My Jobs</h1>
+        <div>You need to be authenticated to view this page.</div>
+      </Layout>
+    );
+  }
   return (
     <Layout>
       <div className="page">
