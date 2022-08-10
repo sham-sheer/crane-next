@@ -8,18 +8,8 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  Int?
-}
-
 model Account {
-  id                 Int     @id @default(autoincrement())
-  userId             Int     @map("user_id")
+  id                 BigInt     @id @default(autoincrement())
   type               String
   provider           String
   providerAccountId  String  @map("provider_account_id")
@@ -34,30 +24,31 @@ model Account {
   oauth_token        String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId             BigInt     @map("user_id")
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
 
 model Session {
-  id           Int      @id @default(autoincrement())
+  id           BigInt      @id @default(autoincrement())
   sessionToken String   @unique @map("session_token")
-  userId       Int      @map("user_id")
   expires      DateTime
+
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       BigInt      @map("user_id")
 
   @@map("sessions")
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
+  id            BigInt       @id @default(autoincrement())
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  posts         Post[]
   accounts      Account[]
   sessions      Session[]
   profile       Profile?
@@ -69,9 +60,9 @@ model User {
 }
 
 model Profile {
-  id     Int     @default(autoincrement()) @id
+  id     BigInt     @default(autoincrement()) @id
   bio    String?
-  userId Int     @unique
+  userId BigInt     @unique
   user   User    @relation(fields: [userId], references: [id])
 }
 
@@ -98,7 +89,7 @@ model Work {
   state String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int @map("user_id")
+  userId BigInt @map("user_id")
 }
 
 model Education {
@@ -109,7 +100,7 @@ model Education {
   major String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int @map("user_id")
+  userId BigInt @map("user_id")
 }
 
 model JobRequest {
@@ -126,5 +117,15 @@ model JobRequest {
   updatedAt DateTime @updatedAt
 
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int @map("user_id")
+  userId BigInt @map("user_id")
+}
+
+model Job {
+  id String @id @default(cuid())
+  title String
+  company String
+  ratings  String
+  reviewsCount String
+  description String
+  url String
 }

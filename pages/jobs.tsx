@@ -1,12 +1,12 @@
 import React from 'react';
 import type { GetServerSideProps } from 'next';
 import Layout from '../components/Layout';
-import JobRequest, { JobRequestProps } from '../components/JobRequest';
+import Job, { JobProps } from '../components/Job';
 import { useSession } from 'next-auth/react';
 import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const feed = await prisma.jobRequest.findMany();
+  const feed = await prisma.job.findMany();
 
   console.log('Feed: ', feed);
   return {
@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 type Props = {
-  feed: JobRequestProps[];
+  feed: JobProps[];
 };
 
 const Blog: React.FC<Props> = (props) => {
@@ -33,9 +33,9 @@ const Blog: React.FC<Props> = (props) => {
       <div className="page">
         <h1>Public Feed</h1>
         <main>
-          {props.feed.map((jobRequest) => (
-            <div key={jobRequest.id} className="post">
-              <JobRequest jobRequest={jobRequest} />
+          {props.feed.map((job) => (
+            <div key={job.id} className="post">
+              <Job job={job} />
             </div>
           ))}
         </main>

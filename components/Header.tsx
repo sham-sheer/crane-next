@@ -112,7 +112,7 @@ const Header: React.FC = () => {
           </a>
         </Link>
         <Link href="/drafts">
-          <a data-active={isActive('/drafts')}>Drafts</a>
+          <a data-active={isActive('/drafts')}>Jobs</a>
         </Link>
         <style jsx>{`
           .bold {
@@ -143,6 +143,11 @@ const Header: React.FC = () => {
         <Link href="/createJobRequest">
           <button>
             <a>New job request</a>
+          </button>
+        </Link>
+        <Link href="/jobs">
+          <button>
+            <a>Available Jobs</a>
           </button>
         </Link>
         <button onClick={() => signOut()}>

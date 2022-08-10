@@ -3,7 +3,7 @@ import prisma from '../../../lib/prisma';
 import { getSession } from 'next-auth/react';
 
 
-// POST /api/job
+// POST /api/jobrequest
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   console.log('Received JSONData from client: ', req.body);
   const jsonData = req.body;
