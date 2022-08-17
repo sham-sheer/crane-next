@@ -10,6 +10,13 @@ import prisma from '../../../lib/prisma';
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
+function replacer(key, value) {
+  if (key === 'big') {
+    return value.toString();
+  }
+  return value;
+}
+
 const options = {
   providers: [
     GitHubProvider({
@@ -23,5 +30,17 @@ const options = {
   ],
   adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
-  debug: true
+  debug: true,
+  callbacks: {
+    async session({session, token, user}) {
+      session = {
+        ...session,
+        user: {
+          id: user.id,
+          ...session.user
+        }
+      };
+      return session;
+    }
+  }
 };

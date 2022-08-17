@@ -1,20 +1,34 @@
 import React from 'react';
 import type { GetServerSideProps } from 'next';
-import Layout from '../components/Layout';
-import Job, { JobProps } from '../components/Job';
-import { useSession, getSession } from 'next-auth/react';
+import Router from 'next/router';
+import Layout from '../components/navigation/Layout';
+import { useSession } from 'next-auth/react';
 import prisma from '../lib/prisma';
+import SearchBar from '../components/search/SearchBar';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const feed = await prisma.jobRequest.findMany();
+
   console.log('Feed: ', feed);
   return {
     props: { feed : JSON.parse(JSON.stringify(feed)) },
   };
 };
 
+export type JobRequestProps = {
+  id: number;
+  name: string;
+  dob: string;
+  user: {
+    name: string;
+    email: string;
+  } | null;
+  degree: string;
+  locationInterest: string[];
+};
+
 type Props = {
-  feed: JobProps[];
+  feed: JobRequestProps[];
 };
 
 const Blog: React.FC<Props> = (props) => {
@@ -31,10 +45,14 @@ const Blog: React.FC<Props> = (props) => {
     <Layout>
       <div className="page">
         <h1>Public Feed</h1>
+        <SearchBar />
         <main>
-          {props.feed.map((job) => (
-            <div key={job.id} className="post">
-              <Job job={job} />
+          {props.feed.map((jobRequest) => (
+            <div key={jobRequest.id} className="post">
+              <div className="text-inherit pb-8" onClick={() => Router.push('/p/[id]', `/p/${jobRequest.id}`)}>
+                <h2>{jobRequest.name}</h2>
+                <small>Date of Birth: {jobRequest.dob}</small>
+              </div>
             </div>
           ))}
         </main>
