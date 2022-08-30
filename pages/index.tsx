@@ -44,8 +44,7 @@ const Blog: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-        <h1>Public Feed</h1>
-        <SearchBar />
+        <h1>Work in Progress</h1>
         <main>
           {props.feed.map((jobRequest) => (
             <div key={jobRequest.id} className="post">

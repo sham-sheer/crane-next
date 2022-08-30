@@ -109,11 +109,14 @@ const Header: React.FC = () => {
         <Link href="/jobs">
           <a className="bold" data-active={isActive('/jobs')}>Find jobs</a>
         </Link>
+        <Link href="/hunter">
+          <a className="bold" data-active={isActive('/')}>Hunter Time</a>
+        </Link>
         <Link href="/">
-          <a className="bold" data-active={isActive('/')}>My Dashboard</a>
+          <a className="bold" data-active={isActive('/')}>My Dashboard (WIP)</a>
         </Link>
         <Link href="/appliedJobs">
-          <a className="bold" data-active={isActive('/')}>Applied Jobs</a>
+          <a className="bold" data-active={isActive('/')}>Applied Jobs (WIP)</a>
         </Link>
         <style jsx>{`
           .bold {
@@ -141,11 +144,11 @@ const Header: React.FC = () => {
         <p>
           {session.user.name} ({session.user.email})
         </p>
-        <Link href="/jobRequest">
+        {/* <Link href="/jobRequest">
           <button>
             <a>New job request</a>
           </button>
-        </Link>
+        </Link> */}
         <button onClick={() => signOut()}>
           <a>Log out</a>
         </button>

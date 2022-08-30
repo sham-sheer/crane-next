@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import Layout from '../navigation/Layout';
 
-export default function SearchBar() {
+export default function SearchBar({searchData, setSearchData}) {
 
   const searchRef = useRef(null);
   const [query, setQuery] = useState('');
@@ -15,11 +15,10 @@ export default function SearchBar() {
     const query = event.target.value;
     setQuery(query);
     if (query.length) {
-
-      const response = await fetch(searchEndpoint(query))
-      const res = response.json()
-      console.log(response)
-
+      const response = await fetch(searchEndpoint(query));
+      const res = await response.json();
+      setResults(res);
+      setSearchData(res);
     } else {
       setResults([]);
     }
@@ -47,7 +46,7 @@ export default function SearchBar() {
           className='search'
           onChange={onChange}
           onFocus={onFocus}
-          placeholder='Search posts'
+          placeholder='Search jobs'
           type='text'
           value={query}
         />

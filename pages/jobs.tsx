@@ -5,6 +5,7 @@ import type { GetServerSideProps } from 'next';
 import Layout from '../components/navigation/Layout';
 import { useSession } from 'next-auth/react';
 import prisma from '../lib/prisma';
+import SearchBar from '../components/search/SearchBar';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const feed = await prisma.job.findMany();
@@ -42,6 +43,7 @@ const Jobs: React.FC<Props> = (props) => {
     url: '',
     description: ''
   });
+  const [searchData, setSearchData] = useState(props);
 
   if (!session) {
     return (
@@ -53,6 +55,7 @@ const Jobs: React.FC<Props> = (props) => {
   }
 
   const handleJobClick = job => {
+    console.log(isShown)
     setJob(job);
     setIsShown(true);
   };
@@ -82,6 +85,7 @@ const Jobs: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
+      <SearchBar searchData={searchData} setSearchData={setSearchData} />
         <div className="inline-block">
           {props.feed.map((job) => (
             <div key={job.id} className="bg-white transition-shadow hover:bg-sky-700 hover:text-gray-50 rounded-md" onClick={() => handleJobClick(job)}>

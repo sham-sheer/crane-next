@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { fetchIndeedJobs } from '../../../lib/api/indeed.js';
+import { fetchIndeedJobs } from '../../../lib/api/indeed/api.js';
 import prisma from '../../../lib/prisma';
 
 
