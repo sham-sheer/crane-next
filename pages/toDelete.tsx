@@ -43,6 +43,33 @@ const Blog: React.FC<Props> = (props) => {
   }
   return (
     <Layout>
+      <div className="page">
+        <h1>Work in Progress</h1>
+        <main>
+          {props.feed.map((jobRequest) => (
+            <div key={jobRequest.id} className="post">
+              <div className="text-inherit pb-8" onClick={() => Router.push('/p/[id]', `/p/${jobRequest.id}`)}>
+                <h2>{jobRequest.name}</h2>
+                <small>Date of Birth: {jobRequest.dob}</small>
+              </div>
+            </div>
+          ))}
+        </main>
+      </div>
+      <style jsx>{`
+        .post {
+          background: white;
+          transition: box-shadow 0.1s ease-in;
+        }
+
+        .post:hover {
+          box-shadow: 1px 1px 3px #aaa;
+        }
+
+        .post + .post {
+          margin-top: 2rem;
+        }
+      `}</style>
     </Layout>
   );
 };

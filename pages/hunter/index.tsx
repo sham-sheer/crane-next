@@ -5,6 +5,7 @@ import { useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import { getHunterDomainSearchEmails, getHunterEmailFinderEmails } from '../../lib/api/hunter/api.js';
 
+
 const Hunter = props => {
     const {data: session}= useSession();
     const [state, setState] = useState({
@@ -29,7 +30,7 @@ const Hunter = props => {
       const value = evt.target.value;
       setState({
         ...state,
-        [evt.target.name]: value
+        [evt.target.id]: value
       });
     }
 
@@ -62,28 +63,49 @@ const Hunter = props => {
 
     return (
       <Layout>
+        <h1 className="mt-4 inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Find Emails</h1>   
+        {/* <div className='container'>
+          <div className="grid grid-cols-5 gap-4">
+            <div className="col-start-2">
+              <div>
+                    <label htmlFor="firstName">First name</label>
+                    <input value={state.firstName} onChange={handleChange}  type="text" id="firstName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" />
+                </div>
+                <div>
+                    <label htmlFor="lastName">Last name</label>
+                    <input value={state.lastName} onChange={handleChange}  type="text" id="lastName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" />
+                </div>
+                <div>
+                    <label htmlFor="domain">Domain</label>
+                    <input value={state.domain} onChange={handleChange}  type="text" id="domain" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="stripe.com" required />
+                </div>
+                <div className="inline-block py-12">
+                    <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={handleSubmit}>Hunt!</button>
+                </div>
+            </div>
+          </div>
+          <div className="m-8 grid grid-cols-5">
+          </div>
+        </div> */}
+
         <div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="relative z-0 mb-6 w-full group">
-                <input value={state.firstName} onChange={handleChange} type="text" name="firstName" id="firstName" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" />
-                <label htmlFor="firstName" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
-            </div>
-            <div className="relative z-0 mb-6 w-full group">
-                <input value={state.lastName} onChange={handleChange} type="text" name="lastName" id="lastName" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" />
-                <label htmlFor="lastName" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
-            </div>
+      <div className='container'>
+        <div className="grid grid-cols-5 gap-4">
+          <div className="col-start-2">
+            <input placeholder="First Name" type="text" id="firstName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleChange} />
           </div>
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="relative z-0 mb-6 w-full group">
-                <input value={state.domain} onChange={handleChange} type="text" name="domain" id="domain" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" />
-                <label htmlFor="domain" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Domain (Ex. stripe.com)</label>
-            </div>
+          <div>
+            <input placeholder="Last Name" type="text" id="lastName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleChange} />
           </div>
-          <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onClick={handleSubmit}>Submit</button>
-
+          <div>
+            <input placeholder="Domain" type="text" id="domain" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={handleChange} />
+          </div>
+          <button onClick={handleSubmit} className="ml-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
         </div>
+      </div>
+    </div>
 
-        {isDomain && (
+      {isDomain && (
         <div className="pt-6 grid gap-4 grid-cols-3 grid-rows-3">
           {emails.map((email) => (
             <div key={email.value} className="bg-white transition-shadow hover:bg-sky-700 hover:text-gray-50 rounded-md">
@@ -96,6 +118,7 @@ const Hunter = props => {
           ))}
         </div>
         )}
+
 
       {isEmailFinder && (
         <div className="pt-6 grid gap-4 grid-cols-3 grid-rows-3">
