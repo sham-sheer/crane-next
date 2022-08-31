@@ -84,7 +84,8 @@ const Jobs: React.FC<Props> = (props) => {
 
   return (
     <Layout>
-      <div className="page">
+      <h1 className="mt-4 inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">Jobs Search</h1>   
+      <div className="m-8 page">
       <SearchBar searchData={searchData} setSearchData={setSearchData} />
         <div className="inline-block">
           {props.feed.map((job) => (
